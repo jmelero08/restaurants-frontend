@@ -56,17 +56,14 @@ export const logout = () => {
           "Content-Type": "application/json"
         },
       })
-        .then(r => r.json())
-        .then(user => {
-          if (user.error) {
-            alert(user.error)
-          } else {
-            dispatch(setCurrentUser(user))
-        //     dispatch(getMyTrips())
-        //     dispatch(resetLoginForm())
-        //     history.push('/')
-          }
-        })
-        .catch(console.log)
+      .then(r => r.json())
+      .then(response => {
+        if (response.error) {
+          alert(response.error)
+        } else {
+          dispatch(setCurrentUser(response.data))
+        }
+      })
+      // .catch(console.log)
     }
   }
