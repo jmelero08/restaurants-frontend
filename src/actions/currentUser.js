@@ -12,30 +12,26 @@ export const clearCurrentUser = () => {
 }
 
 export const login = (credentials) => {
-    return dispatch => {
-      console.log("credentials are", credentials)  
-      return fetch("http://localhost:3001/api/v1/login", {
-        credentials: "include",
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(credentials)
+  return dispatch => {
+    return fetch("http://localhost:3001/api/v1/login", {
+      credentials: "include",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(credentials)
+    })
+      .then(r => r.json())
+      .then(response => {
+        if (response.error) {
+          alert(response.error)
+        } else {
+          dispatch(setCurrentUser(response.data))
+        }
       })
-        .then(r => r.json())
-        .then(user => {
-          if (user.error) {
-            alert(user.error)
-          } else {
-            dispatch(setCurrentUser(user))
-        //     dispatch(getMyTrips())
-        //     dispatch(resetLoginForm())
-        //     history.push('/')
-          }
-        })
-        .catch(console.log)
-    }
+      .catch(console.log)
   }
+}
 
 export const logout = () => {
     return dispatch => {
