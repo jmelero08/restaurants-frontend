@@ -1,9 +1,10 @@
 import React from 'react'
+import MyRestaurants from './MyRestaurants.js'
 
 const MainContainer = () => {
   return (
     <div className="MainContainer">
-      MainContainer
+      <MyRestaurants/>
     </div>
   )
 }
