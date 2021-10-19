@@ -5,6 +5,12 @@ export const setMyRestaurants = restaurants => {
     }
 }
 
+export const clearRestaurants = () => {
+  return {
+    type: "CLEAR_RESTAURANTS"
+  }
+}
+
 export const getMyRestaurants = () => {
     return dispatch => {
       return fetch("http://localhost:3001/api/v1/restaurants", {
