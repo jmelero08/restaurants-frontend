@@ -15,7 +15,7 @@ export const clearCurrentUser = () => {
   }
 }
 
-export const login = (credentials) => {
+export const login = (credentials, history) => {
   return dispatch => {
     return fetch("http://localhost:3001/api/v1/login", {
       credentials: "include",
@@ -33,6 +33,7 @@ export const login = (credentials) => {
           dispatch(setCurrentUser(response.data))
           dispatch(getMyRestaurants())
           dispatch(resetLoginForm())
+          history.push('/')
         }
       })
       .catch(console.log)
@@ -49,7 +50,7 @@ export const logout = () => {
     }
 }  
 
-export const signup = (credentials) => {
+export const signup = (credentials, history) => {
   return dispatch => {
     const userInfo = {
       user: credentials
@@ -70,6 +71,7 @@ export const signup = (credentials) => {
           dispatch(setCurrentUser(response.data))
           dispatch(getMyRestaurants())
           dispatch(resetSignupForm())
+          history.push('/')
         }
       })
       .catch(console.log)
