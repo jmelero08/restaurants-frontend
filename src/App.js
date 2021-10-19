@@ -5,11 +5,10 @@ import { getCurrentUser } from "./actions/currentUser.js"
 import NavBar from "./components/NavBar.js"
 import Home from "./components/Home.js"
 import Login from './components/Login.js'
-import Logout from './components/Logout.js'
 import Signup from './components/SignUp.js'
 import MyRestaurants from './components/MyRestaurants.js'
-import NewRestaurant from './components/NewRestaurant.js'
-import MainContainer from "./components/MainContainer.js"
+import NewRestaurantForm from './components/NewRestaurantForm.js'
+// import MainContainer from "./components/MainContainer.js"
 import { Route, Switch, withRouter } from 'react-router-dom'
 
 class App extends React.Component {
@@ -22,13 +21,13 @@ class App extends React.Component {
     const { loggedIn } = this.props
     return (
       <div className="App">
-        { loggedIn ? <Logout/> : null }
+        { loggedIn ? <NavBar/> : <Home/> } 
         <Switch>
-          <Route exact path='/' render={()=> loggedIn ? <MyRestaurants/> : <Home/>}/>
+          {/* <Route exact path='/' render={()=> loggedIn ? <MyRestaurants/> : <Home/>}/> */}
           <Route exact path='/signup' component={Signup}/>
           <Route exact path='/login' component={Login}/>
           <Route exact path='/restaurants' component={MyRestaurants}/>
-          <Route exact path='/restaurants/new' component={NewRestaurant}/>
+          <Route exact path='/restaurants/new' component={NewRestaurantForm}/>
           </Switch>
       </div>
     );

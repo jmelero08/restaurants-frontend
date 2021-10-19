@@ -1,6 +1,6 @@
 import { resetLoginForm } from "./loginForm.js"
 import { resetSignupForm } from "./signupForm.js"
-import { getMyRestaurants } from "./myRestaurants.js"
+import { getMyRestaurants, clearRestaurants } from "./myRestaurants.js"
 
 export const setCurrentUser = user => {
     return {
@@ -43,6 +43,7 @@ export const login = (credentials, history) => {
 export const logout = () => {
     return dispatch => {
       dispatch(clearCurrentUser())
+      dispatch(clearRestaurants())
       return fetch('http://localhost:3001/api/v1/logout', {
         credentials: "include",
         method: "DELETE"
@@ -93,6 +94,7 @@ export const signup = (credentials, history) => {
           alert(response.error)
         } else {
           dispatch(setCurrentUser(response.data))
+          dispatch(getMyRestaurants())
         }
       })
       // .catch(console.log)
