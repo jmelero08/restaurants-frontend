@@ -11,6 +11,13 @@ export const clearRestaurants = () => {
   }
 }
 
+export const addRestaurant = restaurant => {
+  return {
+    type: "ADD_RESTAURANT",
+    restaurant
+  }
+}
+
 export const getMyRestaurants = () => {
     return dispatch => {
       return fetch("http://localhost:3001/api/v1/restaurants", {
@@ -31,3 +38,33 @@ export const getMyRestaurants = () => {
         .catch(console.log)
     }
   }
+
+
+export const createRestaurant = restaurantData => {
+  return dispatch => {
+    const sendableRestaurantData = {
+      name: restaurantData.name,
+      description: restaurantData.description,
+      user_id: restaurantData.userId
+    }
+    return fetch("http://localhost:3001/api/v1/restaurants", {
+      credentials: "include",
+      method: "POST",
+      headers: {
+        "content-Type": "application/json"
+      },
+      body: JSON.stringify(sendableRestaurantData)
+    })
+    .then(r => r.json())
+    .then(resp => {
+      if (resp.error) {
+        alert(resp.error)
+      } else {
+        dispatch(addRestaurant(resp.data))
+      }
+    })
+    .catch(console.log)
+
+  }
+}  
+

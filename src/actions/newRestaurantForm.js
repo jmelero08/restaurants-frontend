@@ -2,7 +2,7 @@ export const updateNewRestaurantForm = (name, value) => {
     const formData = { name, value }
     return {
       type: "UPDATE_NEW_RESTAURANT_FORM",
-      formData: { name, value }
+      formData
     }
   }
   

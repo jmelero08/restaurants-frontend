@@ -1,8 +1,11 @@
 import React from 'react';
 import { updateNewRestaurantForm } from '../actions/newRestaurantForm.js'
+import { createRestaurant } from '../actions/myRestaurants.js'
 import { connect } from 'react-redux'
 
-const NewRestaurantForm = ({ name, description, history }) => { 
+const NewRestaurantForm = ({ formData, updateNewRestaurantForm, createRestaurant, userId }) => { 
+
+  const { name, description } = formData 
 
     const handleChange = event => {
         event.preventDefault()
@@ -10,7 +13,13 @@ const NewRestaurantForm = ({ name, description, history }) => {
         updateNewRestaurantForm(name, value)
     }
 
-    const handleSubmit = event => event.preventDefault()
+    const handleSubmit = event => { 
+      event.preventDefault()
+      createRestaurant({
+        ...formData, 
+        userId
+      }) 
+    }
 
     return (
     <form onSubmit={handleSubmit}>
@@ -29,7 +38,7 @@ const mapStateToProps = state => {
     }
   }
 
-export default connect(mapStateToProps, { updateNewRestaurantForm })(NewRestaurantForm);
+export default connect(mapStateToProps, { updateNewRestaurantForm, createRestaurant })(NewRestaurantForm);
 
 
 
