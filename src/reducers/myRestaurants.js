@@ -5,7 +5,7 @@ export default (state = [], action) => {
         case "SET_MY_RESTAURANTS":
             return action.restaurants
         case "ADD_RESTAURANT":
-            return state.restaurants.concat(action.restaurants)
+            return state.concat(action.restaurant)
         case "CLEAR_RESTAURANTS":
             return initialState 
       default:

@@ -3,7 +3,7 @@ import { updateNewRestaurantForm } from '../actions/newRestaurantForm.js'
 import { createRestaurant } from '../actions/myRestaurants.js'
 import { connect } from 'react-redux'
 
-const NewRestaurantForm = ({ formData, updateNewRestaurantForm, createRestaurant, userId }) => { 
+const NewRestaurantForm = ({ formData, history, updateNewRestaurantForm, createRestaurant, userId }) => { 
 
   const { name, description } = formData 
 
@@ -18,7 +18,7 @@ const NewRestaurantForm = ({ formData, updateNewRestaurantForm, createRestaurant
       createRestaurant({
         ...formData, 
         userId
-      }) 
+      }, history) 
     }
 
     return (

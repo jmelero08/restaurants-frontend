@@ -1,3 +1,6 @@
+import { resetRestaurantForm} from './newRestaurantForm'
+
+
 export const setMyRestaurants = restaurants => {
     return {
         type: "SET_MY_RESTAURANTS",
@@ -40,7 +43,7 @@ export const getMyRestaurants = () => {
   }
 
 
-export const createRestaurant = restaurantData => {
+export const createRestaurant = (restaurantData, history) => {
   return dispatch => {
     const sendableRestaurantData = {
       name: restaurantData.name,
@@ -61,6 +64,8 @@ export const createRestaurant = restaurantData => {
         alert(resp.error)
       } else {
         dispatch(addRestaurant(resp.data))
+        dispatch(resetRestaurantForm())
+        history.push(`/restaurants/${resp.data.id}`)
       }
     })
     .catch(console.log)
