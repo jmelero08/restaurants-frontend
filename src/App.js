@@ -7,10 +7,12 @@ import Home from "./components/Home.js"
 import Login from './components/Login.js'
 import Signup from './components/SignUp.js'
 import MyRestaurants from './components/MyRestaurants.js'
-import NewRestaurantForm from './components/NewRestaurantForm.js'
-// import MainContainer from "./components/MainContainer.js"
-import { Route, Switch, withRouter, Link } from 'react-router-dom'
+// import RestaurantForm from './components/RestaurantForm.js'
 import RestaurantCard from './components/RestrauantCard';
+import NewRestaurantFormWrapper from './components/NewRestaurantFormWrapper'
+import EditRestaurantFormWrapper from './components/EditRestaurantFormWrapper'
+import { Route, Switch, withRouter } from 'react-router-dom'
+
 
 class App extends React.Component {
 
@@ -24,11 +26,10 @@ class App extends React.Component {
       <div className="App">
         { loggedIn ? <NavBar/> : <Home/> } 
         <Switch>
-          {/* <Route exact path='/' render={()=> loggedIn ? <MyRestaurants/> : <Home/>}/> */}
-          <Route exact path='/signup' component={Signup}/>
+          <Route exact path='/signup' render={({history})=><Signup history={history}/>}/>
           <Route exact path='/login' component={Login}/>
           <Route exact path='/restaurants' component={MyRestaurants}/>
-          <Route exact path='/restaurants/new' component={NewRestaurantForm}/>
+          <Route exact path='/restaurants/new' component={NewRestaurantFormWrapper}/>
           <Route exact path='/restaurants/:id' render={props => {
             const restaurant = restaurants.find(restaurant => restaurant.id === props.match.params.id)
             console.log(restaurant)
@@ -37,8 +38,7 @@ class App extends React.Component {
           }/>
           <Route exact path='/restaurants/:id/edit' render={props => {
             const restaurant = restaurants.find(restaurant => restaurant.id === props.match.params.id)
-            console.log(restaurant)
-            return <NewRestaurantForm restaurant={restaurant} {...props}/>
+            return <EditRestaurantFormWrapper restaurant={restaurant} {...props}/>
             }
           }/>
           </Switch>

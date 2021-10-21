@@ -97,6 +97,6 @@ export const signup = (credentials, history) => {
           dispatch(getMyRestaurants())
         }
       })
-      // .catch(console.log)
+      .catch(console.log)
     }
   }

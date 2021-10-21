@@ -14,6 +14,8 @@ const initialState = {
       return returnVal
       case "RESET_NEW_RESTAURANT_FORM":
         return initialState
+      case "SET_FORM_DATA_FOR_EDIT":
+        return action.restaurantFormData
       default:
         return state    
     }

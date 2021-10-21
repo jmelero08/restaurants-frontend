@@ -1,4 +1,4 @@
-import { resetRestaurantForm} from './newRestaurantForm'
+import { resetRestaurantForm} from './RestaurantForm'
 
 
 export const setMyRestaurants = restaurants => {
@@ -17,6 +17,20 @@ export const clearRestaurants = () => {
 export const addRestaurant = restaurant => {
   return {
     type: "ADD_RESTAURANT",
+    restaurant
+  }
+}
+
+export const deleteRestaurantSuccess = restaurantId => {
+  return {
+    type: "DELETE_RESTAURANT",
+    restaurantId
+  }
+}
+
+export const updateRestaurantSuccess = restaurant => {
+  return {
+    type: "UPDATE_RESTAURANT",
     restaurant
   }
 }
@@ -73,3 +87,51 @@ export const createRestaurant = (restaurantData, history) => {
   }
 }  
 
+export const updateRestaurant = (restaurantData, history) => {
+  return dispatch => {
+    const sendableRestaurantData = {
+      name: restaurantData.name,
+      description: restaurantData.description,
+    }
+    return fetch(`http://localhost:3001/api/v1/restaurants/${restaurantData.restaurantId}`, {
+      credentials: "include",
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(sendableRestaurantData)
+    })
+      .then(r => r.json())
+      .then(resp => {
+        if (resp.error) {
+          alert(resp.error)
+        } else {
+          dispatch(updateRestaurantSuccess(resp.data))
+          history.push(`/restaurants/${resp.data.id}`)
+        }
+      })
+      .catch(console.log)
+  }
+}
+
+export const deleteRestaurant = (restaurantId, history) => {
+  return dispatch => {
+    return fetch(`http://localhost:3001/api/v1/restaurants/${restaurantId}`, {
+      credentials: "include",
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(r => r.json())
+      .then(resp => {
+        if (resp.error) {
+          alert(resp.error)
+        } else {
+          dispatch(deleteRestaurantSuccess(restaurantId))
+          history.push(`/restaurants`)
+        }
+      })
+      .catch(console.log)
+  }
+}
